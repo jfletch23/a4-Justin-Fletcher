@@ -1,8 +1,29 @@
 import './Form.css'
 
-function Form() {
+function Form({onSubmitSuccess}) {
+    const submit = async (event) => {
+        event.preventDefault()
+        const form = event.currentTarget
+        const form_data = new FormData(form)
+        const form_JSON = Object.fromEntries(form_data.entries())
+        const body = JSON.stringify(form_JSON)
+        
+        try {
+            const response = await fetch('/add', {
+                method:'POST',
+                headers: {'Content-Type' : 'application/json'},
+                body
+            })
+            const result = await response.json()
+            await onSubmitSuccess()
+            form.reset()
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
     return (
-        <form>
+        <form onSubmit={submit}>
             <h2>Fill Out Scouting Report</h2>
             <label htmlFor="player_name">Enter player name</label>
             <input type="text" id="player_name" name="player_name" defaultValue="Kade Anderson" required />

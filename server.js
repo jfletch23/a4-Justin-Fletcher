@@ -43,9 +43,9 @@ run()
 
 const add_middleware = async (req, res) => {
   const received_data = req.body
-  age = getAge(received_data.player_birthday.split("T")[0])
+  const age = getAge(received_data.player_birthday.split("T")[0])
   received_data.player_age = age
-  overall = (Number(received_data.hit_tool) + Number(received_data.power_tool) + Number(received_data.run_tool) + +Number(received_data.arm_tool) + Number(received_data.field_tool)) / 5.0
+  const overall = (Number(received_data.hit_tool) + Number(received_data.power_tool) + Number(received_data.run_tool) + +Number(received_data.arm_tool) + Number(received_data.field_tool)) / 5.0
   received_data.overall = Math.round(overall)
   //Hardcoding in UUID so I don't have to change my data but I'm not using user accounts either so no logging in or cookie with the UUID
   received_data.uuid = "6aa887363219c0141c32737d"

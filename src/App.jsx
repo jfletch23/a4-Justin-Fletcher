@@ -6,26 +6,18 @@ import Card from './Card.jsx'
 
 function App() {
   const [players, setPlayers] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+
+  const fetchPlayers = async () => {
+    try {
+      const response = await fetch('/players')
+      const result = await response.json()
+      setPlayers(result)
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
 
   useEffect(() => {
-    const fetchPlayers = async () => {
-      try {
-        const response = await fetch('/players')
-        if (!response.ok) {
-          throw new Error('Network response was not ok')
-        }
-        const result = await response.json()
-        console.log(result)
-        setPlayers(result) 
-      } catch (error) {
-        setError(error.message)
-      } finally {
-        setLoading(false)
-      }
-    }
-
     fetchPlayers()
   }, [])
 
@@ -37,10 +29,10 @@ function App() {
         <h1>Baseball Prospects Database</h1>
       </header>
       <div className="container">
-        <Form />
+        <Form onSubmitSuccess={fetchPlayers} />
         <div className="wrapper">
           {players.map((player) => (
-            <Card key={player._id} data={player} />
+            <Card key={player._id} data={player} onDeleteSuccess={fetchPlayers} />
           ))}
         </div>
       </div>
