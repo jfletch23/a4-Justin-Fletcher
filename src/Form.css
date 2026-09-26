@@ -1,0 +1,28 @@
+form {
+  border-style: solid;
+  border-color: gold;
+  padding: 5px;
+  margin: 10px;
+}
+input, select {
+  display: block;
+  margin-bottom: 10px;
+}
+fieldset {
+  border: none;
+  padding: 0px;
+  margin: 0px;
+}
+legend {
+  margin-bottom: 3px;
+}
+.radio_group {
+  display:block
+}
+.radio_group input, .radio_group label {
+  display:inline;
+}
+input[type="number"] {
+  width: 250px;
+  height: 25px;
+}
